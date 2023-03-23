@@ -56,7 +56,7 @@ const Admin: NextPage = () => {
         <div className="m-auto rounded border-8 border-indigo-800 bg-blue-300 p-8 text-center font-bold text-slate-800 shadow-md shadow-blue-800">
           <p className="text-3xl">Painel</p>
           <span className="text-[96px]">{info?.password}</span>
-          <p className="text-xl">Guichê: {info?.message}</p>
+          {info?.message && <p className="text-xl">Guichê: {info?.message}</p>}
         </div>
         <div className="mx-auto flex flex-col gap-8 px-4 text-white">
           <div className="mx-auto">

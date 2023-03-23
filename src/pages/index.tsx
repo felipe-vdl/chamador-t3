@@ -7,7 +7,7 @@ import { useState } from "react";
 import type { CurrentPassword } from "@prisma/client";
 
 const Home: NextPage = () => {
-  const [password, setPassword] = useState<Pick<
+  const [info, setInfo] = useState<Pick<
     CurrentPassword,
     "message" | "password"
   > | null>(null);
@@ -26,13 +26,13 @@ const Home: NextPage = () => {
 
   api.password.currentPassword.useQuery(undefined, {
     onSuccess: (data) => {
-      setPassword(data);
+      setInfo(data);
     },
   });
 
   api.password.wsSubscription.useSubscription(undefined, {
     onData: (data) => {
-      setPassword(data);
+      setInfo(data);
       chamar(data);
     },
     onError: (err) => {
@@ -57,11 +57,13 @@ const Home: NextPage = () => {
         />
         <h2 className="mt-auto text-center text-xl">Chamada</h2>
         <div className="m-auto mb-0 mt-3 w-[95%] rounded rounded-b-none border-4 border-b-0 border-indigo-800 bg-blue-300 p-4 text-center text-[160px] font-bold text-slate-800">
-          {password?.password}
+          {info?.password}
         </div>
-        <div className="mx-auto w-[95%] rounded rounded-t-none border-4 border-t-2 border-indigo-800 bg-blue-300 p-4 text-center text-[80px] font-bold text-slate-800">
-          Guichê: {password?.message}
-        </div>
+        {info?.message &&
+          <div className="mx-auto w-[95%] rounded rounded-t-none border-4 border-t-2 border-indigo-800 bg-blue-300 p-4 text-center text-[80px] font-bold text-slate-800">
+            Guichê: {info?.message}
+          </div>
+        }
         <footer className="mt-auto bg-indigo-800 p-1 text-center text-xs text-white">
           2023 © Subsecretaria de Tecnologia da Informação — Prefeitura
           Municipal de Mesquita
