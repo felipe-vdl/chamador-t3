@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   }: Pick<CurrentPassword, "message" | "password">) => {
     const voices = window.speechSynthesis.getVoices();
     const newSpeech = new SpeechSynthesisUtterance(
-      `Número ${password}, ${message ? `Guichê: ${message}` : ""}.`
+      `Número ${password}, ${message ? `guichê: ${message}` : ""}.`
     );
     newSpeech.voice = voices[0] as SpeechSynthesisVoice;
     window.speechSynthesis.speak(newSpeech);
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
           className="mb-3 mt-5 ml-5 w-[250px] self-center sm:self-center md:self-start"
         />
         <h2 className="mt-auto text-center text-xl">Chamada</h2>
-        <div className={`m-auto mb-0 mt-3 w-[95%] rounded rounded-b-none border-4 border-b-2 border-indigo-800 bg-blue-300 p-4 text-center text-[160px] font-bold text-slate-800`}>
+        <div className={`m-auto mb-0 mt-3 w-[95%] rounded rounded-b-none border-4 ${info?.message ? "border-b-2" : ""} border-indigo-800 bg-blue-300 p-4 text-center text-[160px] font-bold text-slate-800`}>
           {info?.password}
         </div>
         {info?.message &&
