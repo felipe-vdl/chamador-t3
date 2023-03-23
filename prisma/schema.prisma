@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Password {
+    id        Int        @id @default(autoincrement())
+    createdAt DateTime   @default(now()) @map("created_at")
+    @@map("passwords")
+}
+
+model CurrentPassword {
+    id        Int        @id @default(1)
+    password  Int
+    message   String?
+    createdAt DateTime   @default(now()) @map("created_at")
+    updatedAt DateTime?  @updatedAt @map("updated_at")
+    @@map("current_password")
+}
+
+model SessionTotal {
+    id        Int        @id @default(autoincrement())
+    quantity  Int
+    createdAt DateTime   @default(now()) @map("created_at")
+    updatedAt DateTime?  @updatedAt @map("updated_at")
+    closedAt  DateTime?  @map("closed_at")
+    @@map("session_totals")
+}
